@@ -276,6 +276,24 @@ require('lazy').setup {
   -- after the plugin has been loaded:
   --  config = function() ... end
 
+  -- autopairs adds the appropriate pair when creating things
+  {
+    'windwp/nvim-autopairs',
+    -- Optional dependency
+    dependencies = { 'hrsh7th/nvim-cmp' },
+    config = function()
+      require('nvim-autopairs').setup {}
+      -- If you want to automatically add `(` after selecting a function or method
+      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+      local cmp = require 'cmp'
+      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+    end,
+  },
+
+  -- surround gives some helpful commands for surrounding existing things
+  -- in pairs
+  { 'tpope/vim-surround' },
+
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VeryLazy', -- Sets the loading event to 'VeryLazy'
