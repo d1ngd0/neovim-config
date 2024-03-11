@@ -294,6 +294,22 @@ require('lazy').setup {
   -- in pairs
   { 'tpope/vim-surround' },
 
+  -- Add golang stuff
+  {
+    'ray-x/go.nvim',
+    dependencies = { -- optional packages
+      'ray-x/guihua.lua',
+      'neovim/nvim-lspconfig',
+      'nvim-treesitter/nvim-treesitter',
+    },
+    config = function()
+      require('go').setup()
+    end,
+    event = { 'CmdlineEnter' },
+    ft = { 'go', 'gomod' },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+  },
+
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VeryLazy', -- Sets the loading event to 'VeryLazy'
@@ -748,19 +764,34 @@ require('lazy').setup {
     end,
   },
 
-  -- The theme
-  {
-    'svrana/neosolarized.nvim',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  { -- You can easily change to a different colorscheme.
+    -- Change the name of the colorscheme plugin below, and then
+    -- change the command in the config to whatever the name of that colorscheme is
+    --
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
+    'ishan9299/nvim-solarized-lua',
     priority = 1000, -- make sure to load this before all the other start plugins
-    dependencies = {
-      'tjdevries/colorbuddy.vim',
-    },
-    opts = {
-      comment_italics = true,
-      background_set = true,
-    },
+    lazy = false,
+    config = function()
+      vim.o.background = 'dark'
+      vim.opt.termguicolors = true
+      vim.cmd 'colorsche solarized'
+    end,
   },
+
+  -- The theme
+  -- {
+  --   '',
+  --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   dependencies = {
+  --     'tjdevries/colorbuddy.vim',
+  --   },
+  --   opts = {
+  --     comment_italics = true,
+  --     background_set = true,
+  --   },
+  -- },
 
   -- Golang plugin
   {
@@ -820,7 +851,7 @@ require('lazy').setup {
 
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc' },
+        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'go', 'rust' },
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = { enable = true },
