@@ -587,6 +587,11 @@ require('lazy').setup {
             },
           },
         },
+        helm_ls = {
+          yamlls = {
+            path = 'yaml-language-server',
+          },
+        },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -872,15 +877,19 @@ require('lazy').setup {
     end,
   },
 
+  -- {
+  --   'github/copilot.vim',
+  --   config = function()
+  --     vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
+  --       expr = true,
+  --       replace_keycodes = false,
+  --     })
+  --     vim.g.copilot_no_tab_map = true
+  --   end,
+  -- },
+
   {
-    'github/copilot.vim',
-    config = function()
-      vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
-        expr = true,
-        replace_keycodes = false,
-      })
-      vim.g.copilot_no_tab_map = true
-    end,
+    'sebdah/vim-delve',
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
